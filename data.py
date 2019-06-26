@@ -122,3 +122,10 @@ def saveResult(save_path,npyfile,flag_multi_class = False,num_class = 2):
     for i,item in enumerate(npyfile):
         img = labelVisualize(num_class,COLOR_DICT,item) if flag_multi_class else item[:,:,0]
         io.imsave(os.path.join(save_path,"%d_predict.png"%i),img)
+
+#Requires: string path to image, tuple new Dimensions
+#Effects: returns a shrunken image
+def preprocessImage(imgPath, newDimensions):
+    img = cv2.imread(imgPath, cv2.IMREAD_UNCHANGED)
+    return cv2.resize(img, newDimensions, interpolation =
+                      cv2.INTER_LANCZOS4)
