@@ -14,18 +14,16 @@ data_gen_args = dict(rotation_range=0.2,
 
 
 myGene = \
-    trainGenerator(2,'/Users/User/Documents/School/CAMM/data','image','label',data_gen_args,save_to_dir
-               = '/Users/User/Documents/School/CAMM/output')
+    trainGenerator(2,'data/train','image','label',data_gen_args,save_to_dir
+               = 'output')
 #you will see 60 transformed images and their masks in data/membrane/train/aug
-num_batch = 3
-for i,batch in enumerate(myGene):
-    if(i >= num_batch):
-        break
-#
-#model = unet()
-#model_checkpoint = ModelCheckpoint('unet_membrane.hdf5', monitor='loss',verbose=1, save_best_only=True)
-#model.fit_generator(myGene,steps_per_epoch=300,epochs=1,callbacks=[model_checkpoint])
-#
-#testGene = testGenerator("data/membrane/test")
-#results = model.predict_generator(testGene,30,verbose=1)
-#saveResult("data/membrane/test",results)
+#num_batch = 3
+#for i,batch in enumerate(myGene):
+#    if(i >= num_batch):
+model = unet()
+model_checkpoint = ModelCheckpoint('unet_membrane.hdf5', monitor='loss',verbose=1, save_best_only=True)
+model.fit_generator(myGene,steps_per_epoch=300,epochs=1,callbacks=[model_checkpoint])
+
+testGene = testGenerator("data/membrane/test")
+results = model.predict_generator(testGene,30,verbose=1)
+saveResult("data/membrane/test",results)
