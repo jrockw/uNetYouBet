@@ -1,9 +1,23 @@
 import os
 from PIL import Image
 import numpy as np
+from pathlib import Path
 
 avgMap = np.zeros(shape=(256,256))
-LOC = "~/uNetYouBet/data/"
-counter = 0 
-for file in os.listdir(LOC):
-    print (file)
+LOC = "data/"
+TRUTH =  "DAPI/"
+OUT = "test/out/"
+counter = 0
+
+for i in range(2024):
+    truImg = Image.open(os.path.join(LOC, TRUTH, "%d.png"%i))
+    outImg = Image.open(os.path.join(LOC, OUT, "%d.png"%i))
+    for x in range(256):
+        for y in range(256):
+            diff = abs(truImg[x][y] - outImg[x][y]) ** 2
+            avgMap[x][y] = diff
+
+avgMap = (avgMap * 255).astype(np.uint8)
+Image.fromarray(avgMap, mode='L').save('aggregate.png')
+
+
