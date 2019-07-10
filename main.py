@@ -15,7 +15,7 @@ data_gen_args = dict(rotation_range=0.2,
 
 myGene = \
     trainGenerator(2,'data/train','image','label',data_gen_args,save_to_dir
-               = 'output')
+               = None)
 #you will see 60 transformed images and their masks in data/membrane/train/aug
 #num_batch = 3
 #for i,batch in enumerate(myGene):
@@ -24,6 +24,6 @@ model = unet()
 model_checkpoint = ModelCheckpoint('unet_membrane.hdf5', monitor='loss',verbose=1, save_best_only=True)
 model.fit_generator(myGene,steps_per_epoch=300,epochs=1,callbacks=[model_checkpoint])
 
-testGene = testGenerator("data/test/image")
-results = model.predict_generator(testGene,200,verbose=1)
+testGene = testGenerator("data/he")
+results = model.predict_generator(testGene,440,verbose=1)
 saveResult("data/test/out",results)
