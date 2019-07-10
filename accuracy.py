@@ -10,8 +10,8 @@ OUT = "test/out/"
 counter = 0
 
 for i in range(2024):
-    truImg = Image.open(os.path.join(LOC, TRUTH, "%d.png"%i))
-    outImg = Image.open(os.path.join(LOC, OUT, "%d.png"%i))
+    truImg = np.array(Image.open(os.path.join(LOC, TRUTH, "%d.png"%i)))
+    outImg = np.array(Image.open(os.path.join(LOC, OUT, "%d_predict.png"%i)))
     for x in range(256):
         for y in range(256):
             diff = abs(truImg[x][y] - outImg[x][y]) ** 2
