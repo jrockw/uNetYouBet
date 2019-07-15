@@ -17,7 +17,7 @@ for i in range(2024):
             diff = abs(truImg[x][y] - outImg[x][y]) ** 2
             avgMap[x][y] = diff
 
-avgMap = (avgMap * 255).astype(np.uint8)
-Image.fromarray(avgMap, mode='L').save('aggregate.png')
+avgMap = (avgMap * 255).astype(np.uint16)
+Image.fromarray(avgMap, mode='L;16').save('aggregate.png')
 
 
